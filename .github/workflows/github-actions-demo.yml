@@ -36,6 +36,6 @@ jobs:
           path: |
            front_angular/dist
       - run: |
-          composer install --ignore-platform-reqs
+          composer install --lock
           cp -rT front_angular/dist ..
           sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
