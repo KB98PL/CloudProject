@@ -36,5 +36,5 @@ jobs:
           path: |
            front_angular/dist
       - run: |
-          cp -rT dist ..
+          cp -rT front_angular/dist ..
           sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
