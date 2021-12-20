@@ -24,9 +24,10 @@ jobs:
       - run: sudo apt update -qy
       - run: sudo apt install -y ruby-dev
       - run: sudo gem install dpl
-      - run: cd front_angular
-      - run: sudo npm install --progress=false
-      - run: sudo npm run build
+      - run: | 
+          cd front_angular
+          sudo npm install --progress=false
+          sudo npm run build
       - run: cp -rT dist ..
       - run: cd ..
       - run: sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
