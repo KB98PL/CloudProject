@@ -1,0 +1,13 @@
+{
+    "menu.about": "O mnie",
+    "menu.archive": "Archiwum",
+    "menu.contact": "Kontakt",
+    "menu.login": "Zaloguj",
+    "menu.logout": "Wyloguj",
+    "menu.title":"wszystko o",
+    "menu.adminpanel":"Admin panel",
+    "login":"Logowanie",
+    "login.login":"Zaloguj",
+    "login.register":"Stwórz konto",
+    "login.remember":"Zapamiętaj mnie"
+  }

@@ -1,0 +1,24 @@
+<div class="container" style="justify-content: center; display:flex;">
+<div class="login-form col-xl-4" >
+   
+    
+    <form [formGroup]="loginForm"(ngSubmit)="onSubmit()">
+        <h2 class="text-center">Logowanie </h2>       
+        <div class="form-group">
+            <input type="text" formControlName="nick" class="form-control" placeholder="Nick" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" formControlName="password" class="form-control" placeholder="Hasło" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Zaloguj </button>
+        </div>
+        <!-- <div class="clearfix">
+            <label class="float-left form-check-label"><input type="checkbox"> {{ 'login.remember' | translate }} </label>
+            <a href="#" class="float-right">Zapomniałeś hasła?</a>
+        </div> -->
+    </form>
+    <p class="text-center"><a href="#" routerLink="../register">Stwórz konto </a></p>
+</div>
+</div>
+<router-outlet></router-outlet>

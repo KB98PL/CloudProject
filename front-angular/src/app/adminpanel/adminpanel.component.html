@@ -1,0 +1,199 @@
+<div class="container" *ngIf="admin" style="align-content: center;">
+  
+<h1 style="font-size: 40px; margin-top:0.5em;">Klienci
+  <button type="submit" (click)="edit(null)" class="btn btn-primary" style="margin-left: 2px;">Dodaj klienta</button></h1>
+<table mat-table [dataSource]="users" class="mat-elevation-z8" >
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element._id.$oid}} </td>
+    </ng-container>
+    <ng-container matColumnDef="nick">
+      <th mat-header-cell *matHeaderCellDef> Nick </th>
+      <td mat-cell *matCellDef="let element"> <b>{{element.nick}}</b> </td>
+    </ng-container>
+    <ng-container matColumnDef="imie">
+      <th mat-header-cell *matHeaderCellDef> Imie </th>
+      <td mat-cell *matCellDef="let element"> {{element.imie}} </td>
+    </ng-container>
+    <ng-container matColumnDef="nazwisko">
+      <th mat-header-cell *matHeaderCellDef> Nazwisko </th>
+      <td mat-cell *matCellDef="let element"> {{element.nazwisko}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dataRejestracji">
+      <th mat-header-cell *matHeaderCellDef> Data rejestracji </th>
+      <td mat-cell *matCellDef="let element"> {{element.dataRejestracji}} </td>
+    </ng-container>
+    <ng-container matColumnDef="adres">
+        <th mat-header-cell *matHeaderCellDef> Adres </th>
+        <td mat-cell *matCellDef="let element"> {{element.adres}} </td>
+      </ng-container>
+      <ng-container matColumnDef="telefon">
+        <th mat-header-cell *matHeaderCellDef> Telefon </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefon}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Akcje </th>
+        <td mat-cell *matCellDef="let element">  
+            <button type="submit" (click)="delete(element._id.$oid)" class="btn btn-danger">Usuń</button> 
+            <button type="submit" (click)="edit(element._id.$oid)" class="btn btn-primary" style="margin-left: 2px;">Edytuj</button>
+            <button type="submit" (click)="pass(element._id.$oid)" class="btn btn-yellow" style="margin-left: 2px;">Zmień hasło</button>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>
+
+  <div style="margin: 50px 0px;" *ngIf="selectedUser">
+        <div class="row">
+           
+            <div class="col-xl-4">
+                <label class="label-user">Imie</label>
+                <input [(ngModel)]="user.imie" type="text"  class="form-control user" placeholder="Imię" >
+            </div>
+            <div class="col-xl-4">
+                <label class="label-user">Nazwisko</label>
+                <input [(ngModel)]="user.nazwisko" type="text"  class="form-control user" placeholder="Nazwisko" >
+            </div>
+            <div class="col-xl-4">
+                <label class="label-user" >Nick</label>
+                <input [(ngModel)]="user.nick" type="text"  class="form-control user" laceholder="Nick" >
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-xl-4">
+                <label class="label-user">Adres</label>
+                <input [(ngModel)]="user.adres" type="text"  class="form-control user" placeholder="Adres">
+            </div>
+            <div class="col-xl-4">
+                <label class="label-user">Telefon</label>
+                <input [(ngModel)]="user.telefon" type="text"  class="form-control user" placeholder="Telefon">
+            </div>
+          
+            <div class="col-xl-4">
+                <button type="submit" (click)="save(user._id.$oid)" class="btn btn-primary btn-lg" style="margin-right: 6px; margin-top: 22px;">Zapisz</button>
+                <button type="submit" (click)="cancel()" class="btn btn-yellow btn-lg" style=" margin-top: 22px;">Anuluj</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" *ngIf="selectedUser == 1">
+          <div class="col-xl-4">
+            <label class="label-user">Hasło</label>
+            <input [(ngModel)]="user.password" type="password"  class="form-control user" placeholder="Hasło">
+        </div>
+        </div>
+
+
+  </div>
+
+  <h1 style="font-size: 40px; margin-top:0.5em;">Wszystkie filmy
+    <button type="submit" (click)="editFilm(null)" class="btn btn-primary" style="margin-left: 2px;">Dodaj film</button>
+  </h1>
+
+  <div class="row">
+    <form [formGroup]="form">
+       <input type="checkbox" (change)="getDisplayedColumns()" *ngFor="let cd of columnDefinitions"  [formControlName]="cd.def"/>
+    </form>   
+  </div>
+  <div class="row">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtr" >
+      </mat-form-field> 
+    </div>
+
+  <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" >
+            
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element._id.$oid}} </td>
+    </ng-container>
+    <ng-container matColumnDef="tytul">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tytuł </th>
+      <td mat-cell *matCellDef="let element"> <b>{{element.tytul}}</b> </td>
+    </ng-container>
+    <ng-container matColumnDef="gatunek">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gatunek </th>
+      <td mat-cell *matCellDef="let element"> {{element.gatunek}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rezyser">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reżyser </th>
+      <td mat-cell *matCellDef="let element"> {{element.rezyser}} </td>
+    </ng-container>
+    <ng-container matColumnDef="czas_trwania">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Czas trwania </th>
+        <td mat-cell *matCellDef="let element"> {{element.czas_trwania}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dostepnosc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dostępność </th>
+        <td mat-cell *matCellDef="let element"> <b>{{element.dostepnosc}} </b></td>
+      </ng-container>
+      <ng-container matColumnDef="ocena_filmu">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ocena </th>
+        <td mat-cell *matCellDef="let element"> {{element.ocena_filmu}} </td>
+      </ng-container>
+      <ng-container matColumnDef="streszczenie_fabuly">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Opis </th>
+        <td mat-cell *matCellDef="let element"> {{element.streszczenie_fabuly}} </td>
+      </ng-container>
+      <ng-container matColumnDef="obsada">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Aktorzy </th>
+        <td mat-cell *matCellDef="let element"> {{element.obsada.join(', ')}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Akcje </th>
+        <td mat-cell *matCellDef="let element">  
+            <button type="submit" (click)="deleteFilm(element._id.$oid)" *ngIf="!element.dostepnosc" class="btn btn-danger">Usuń</button> 
+            <button type="submit" (click)="editFilm(element._id.$oid)" class="btn btn-primary" style="margin-left: 2px;">Edytuj</button>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsFilm"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsFilm;"></tr>
+  </mat-table>
+  <div style="margin: 50px 0px;" *ngIf="selectedFilm">
+    <div class="row">
+       
+        <div class="col-xl-4">
+            <label class="label-user">Tytuł</label>
+            <input [(ngModel)]="film.tytul" type="text"  class="form-control user" placeholder="Tytuł" >
+        </div>
+        <div class="col-xl-4">
+            <label class="label-user">Gatunek</label>
+            <input [(ngModel)]="film.gatunek" type="text"  class="form-control user" placeholder="Gatunek" >
+        </div>
+        <div class="col-xl-4">
+            <label class="label-user" >Reżyser</label>
+            <input [(ngModel)]="film.rezyser" type="text"  class="form-control user" laceholder="Reżyser" >
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-xl-4">
+          <label class="label-user">Obsada</label>
+          <input [(ngModel)]="obsadaF" type="text"  class="form-control user" placeholder="Obsada">
+      </div>
+      <div class="col-xl-8">
+          <label class="label-user">Streszczenie filmu</label>
+          <textarea (change)="doTextareaValueChange($event)" name="contentOfDes" class="form-control" rows="3">{{contentOfDes}}</textarea>
+      </div>
+    
+     
+  </div>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-xl-4">
+            <label class="label-user">Czas trwania</label>
+            <input [(ngModel)]="film.czas_trwania" type="text"  class="form-control user" placeholder="Czas trwania">
+        </div>
+        <div class="col-xl-4">
+            <label class="label-user">Ocena filmu</label>
+            <input [(ngModel)]="film.ocena_filmu" type="text"  class="form-control user" placeholder="Ocena filmu">
+        </div>
+      
+        <div class="col-xl-4">
+            <button type="submit" (click)="saveFilm(film._id.$oid)" class="btn btn-primary btn-lg" style="margin-right: 6px; margin-top: 22px;">Zapisz</button>
+            <button type="submit" (click)="cancel()" class="btn btn-yellow btn-lg" style=" margin-top: 22px;">Anuluj</button>
+        </div>
+    </div>
+
+
+</div>
+</div>

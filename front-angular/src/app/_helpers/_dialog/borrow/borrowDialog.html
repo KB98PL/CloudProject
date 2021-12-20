@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+	Imię:
+		<input [(ngModel)]="imie" type="text"  class="form-control" placeholder="Imię" >
+	Nazwisko:
+		<input [(ngModel)]="nazwisko" type="text"  class="form-control" placeholder="Nazwisko" >
+	Id klienta:
+		<input [(ngModel)]="userId" type="text"  class="form-control" placeholder="Id klienta" >
+
+</div>
+<div mat-dialog-actions >
+	<button mat-raised-button class="btn btn-primary" style="margin-right: 5px;"(click)="onConfirmClick()" tabindex="1">Wypożycz</button>
+	<button mat-raised-button class="btn btn-yellow" (click)="close()" tabindex="-1">NIE</button>
+</div>

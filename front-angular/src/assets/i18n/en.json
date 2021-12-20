@@ -1,0 +1,14 @@
+{
+    "menu.about": "About me",
+    "menu.archive": "Archive",
+    "menu.contact": "Contact",
+    "menu.login": "Login",
+    "menu.logout": "Logout",
+    "menu.title":"everything about",
+    "menu.adminpanel":"Admin panel",
+    "login":"Login",
+    "login.login":"Log in",
+    "login.register":"Create account",
+    "login.remember":"Remember me"
+
+  }
