@@ -28,4 +28,5 @@ jobs:
       - run: sudo npm install --progress=false
       - run: sudo npm run build
       - run: sudo cp -rT dist ..
+      - run: sudo cd ..
       - run: sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
