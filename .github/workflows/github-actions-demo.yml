@@ -28,6 +28,13 @@ jobs:
           cd front_angular
           sudo npm install --progress=false
           sudo npm run build
+          cd ..
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: |
+           front_angular/dist
+      - run: |
           cp -rT dist ..
-      - run: ls -la
-      - run: sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
+          sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
