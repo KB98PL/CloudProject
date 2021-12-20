@@ -20,8 +20,9 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: sudo apt update -qy
       - run: sudo apt install -y ruby-dev
       - run: sudo gem install dpl
-      - run: ls -al 
+      - run: ls -la
       - run: sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
