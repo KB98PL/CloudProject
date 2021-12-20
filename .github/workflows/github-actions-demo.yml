@@ -19,8 +19,8 @@ jobs:
 
   buildBackend: 
     runs-on: ubuntu-latest
-    
-        - apt update -qy
-        - apt install -y ruby-dev
-        - gem install dpl
-        - dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=$HEROKU_API_KEY --skip_cleanup
+    steps:
+      - run: apt update -qy
+      - run: apt install -y ruby-dev
+      - run: gem install dpl
+      - run: dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=$HEROKU_API_KEY --skip_cleanup
