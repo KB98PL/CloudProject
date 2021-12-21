@@ -61,13 +61,9 @@ jobs:
             cp -r web_api build/public/
             cp .htaccess build/public
             cp composer.json composer/composer.lock build/
+            cp -rT dist/wypozyczalnia-angular build/public/
             cp Procfile build/
             cd build
             sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
-      -  run : cp -rT dist/wypozyczalnia-angular build/public/
-      -  run : ls -la composer
-      -  run : ls -la build
-      -  run : ls -la .
-      -  run : ls -la build/public
 
 
