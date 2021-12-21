@@ -35,7 +35,7 @@ export class LoginComponent {
           this.userIdle.startWatching();
          
           this.router.navigate(['home']);
-          this.AppComponent.ngOnInit()
+          this.AppComponent.ngOnInit();
           this.AlertService.success(data.resultOfLogging);
       }
       else{
