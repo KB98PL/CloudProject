@@ -20,10 +20,9 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     steps:
+      - run: cd ..
       - run: ls -la
       - run: |
-         cd ..
-         cd ..
          cd front_angular
          sudo npm install --progress=false
          sudo npm run build
