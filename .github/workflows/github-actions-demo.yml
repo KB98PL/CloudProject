@@ -57,7 +57,7 @@ jobs:
     # Prepare files for deployment
       -  run : mkdir -p build/public/
       -  run : cp -r web_api build/public/
-      -  run : cp -rT front_angular/dist/angular_frontend build/public/
+      -  run : cp -rT front_angular/dist/front_angular build/public/
       -  run : cp .htaccess build/public
       -  run : cp composer.json composer.lock build/
       -  run : cp Procfile build/
