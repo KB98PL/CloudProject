@@ -20,6 +20,7 @@ jobs:
   Build-frontend:
     needs:  Tests
     runs-on: ubuntu-latest
+    if: contains(github.ref, 'master')
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -36,6 +37,7 @@ jobs:
   Build-backend:
     needs:  Tests
     runs-on: ubuntu-latest
+    if: contains(github.ref, 'master')
     steps:
       - uses: actions/checkout@v2
       - run : composer update --ignore-platform-reqs
@@ -49,6 +51,7 @@ jobs:
   Deploy: 
     needs:  [Build-backend,Build-frontend]
     runs-on: ubuntu-latest
+    if: contains(github.ref, 'master')
     steps:
       - uses: actions/checkout@v2
       - name: Download all workflow run artifacts
