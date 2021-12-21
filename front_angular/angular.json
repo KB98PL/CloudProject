@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "blogkb-angular": {
+    "wypozyczalnia-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/blogkb-angular",
+            "outputPath": "dist/wypozyczalnia-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -80,18 +80,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "blogkb-angular:build"
+            "browserTarget": "wypozyczalnia-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "blogkb-angular:build:production"
+              "browserTarget": "wypozyczalnia-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "blogkb-angular:build"
+            "browserTarget": "wypozyczalnia-angular:build"
           }
         },
         "test": {
@@ -134,16 +134,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "blogkb-angular:serve"
+            "devServerTarget": "wypozyczalnia-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "blogkb-angular:serve:production"
+              "devServerTarget": "wypozyczalnia-angular:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "blogkb-angular"
+  "defaultProject": "wypozyczalnia-angular"
 }
