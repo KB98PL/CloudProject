@@ -23,7 +23,7 @@ jobs:
       - run: cd ..
       - run: cd ..
       - run: ls
-      - run: cd home/front_angular
+      - run: cd /home/front_angular
       - run: ls -la
       - run: |
          sudo npm install --progress=false
