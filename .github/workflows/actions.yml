@@ -60,7 +60,7 @@ jobs:
     # Prepare files for deployment
       -  run : mkdir -p build/public/
       -  run : cp -r web_api build/public/
-      -  run : cp -rT dist/wypozyczalnia-angular build/public/
+     # -  run : cp -rT dist/wypozyczalnia-angular build/public/
       -  run : cp .htaccess build/public
       -  run : ls -la composer
       -  run : cp composer.json composer/composer.lock build/
