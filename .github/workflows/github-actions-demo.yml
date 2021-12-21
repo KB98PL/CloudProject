@@ -36,7 +36,7 @@ jobs:
   build-backend:
     runs-on: ubuntu-latest
     steps:
-      -  run : sudo composer update --ignore-platform-reqs
+      -  run : composer update --ignore-platform-reqs
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
