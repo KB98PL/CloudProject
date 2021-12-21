@@ -62,11 +62,11 @@ jobs:
       -  run : cp -r web_api build/public/
      # -  run : cp -rT dist/wypozyczalnia-angular build/public/
       -  run : cp .htaccess build/public
+      -  run : cp composer.json composer/composer.lock build/
+      -  run : cp Procfile build/
       -  run : ls -la composer
       -  run : ls -la build
       -  run : ls -la .
-      -  run : cp composer.json composer/composer.lock build/
-      -  run : cp Procfile build/
 
     # Push to Heroku
       -  run : cd build
