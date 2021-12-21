@@ -22,6 +22,7 @@ jobs:
     steps:
       - run: ls -la
       - run: |
+         cd ..
          cd front_angular
          sudo npm install --progress=false
          sudo npm run build
