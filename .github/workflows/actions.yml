@@ -17,21 +17,21 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-#   Build-frontend:
-#     needs:  Tests
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - run: |
-#          cd front_angular
-#          sudo npm install --progress=false
-#          sudo npm run build
-#       - name: Archive
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: dist
-#           path: |
-#            front_angular/dist
+  Build-frontend:
+    needs:  Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+         cd front_angular
+         sudo npm install --progress=false
+         sudo npm run build
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: |
+           front_angular/dist
      
   Build-backend:
     needs:  Tests
@@ -47,7 +47,7 @@ jobs:
            composer.lock
 
   Deploy: 
-    needs:  [Build-backend]
+    needs:  [Build-backend,Build-frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -64,7 +64,7 @@ jobs:
             cp Procfile build/
             cd build
             sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
-     # -  run : cp -rT dist/wypozyczalnia-angular build/public/
+      -  run : cp -rT dist/wypozyczalnia-angular build/public/
       -  run : ls -la composer
       -  run : ls -la build
       -  run : ls -la .
