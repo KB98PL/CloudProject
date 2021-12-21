@@ -25,7 +25,7 @@ jobs:
       - run: |
          cd front_angular
          sudo npm install --progress=false
-         sudo npm run build --configuration=prod
+         sudo npm run build --configuration=production
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
