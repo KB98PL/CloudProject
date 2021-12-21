@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  web_api_url_base:'http://localhost/web_api/'
- // web_api_url_base:'https://wypozyczalnia-project.herokuapp.com/web_api/'
+  //web_api_url_base:'http://localhost/web_api/'
+  web_api_url_base:'/web_api/'
 
 };
 
