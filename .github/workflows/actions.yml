@@ -1,7 +1,7 @@
-name: GitHub Actions Demo
+name: Actions
 on: [push]
 jobs:
-  Test:
+  Tests:
     runs-on: ubuntu-latest
     steps:
     
@@ -17,7 +17,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  build-frontend:
+  Build-frontend:
+    needs:  Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,7 +33,8 @@ jobs:
           path: |
            front_angular/dist
      
-  build-backend:
+  Build-backend:
+    needs:  Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,26 +46,24 @@ jobs:
           path: |
            composer.lock
 
-  deploy: 
-    needs:  [build-backend,build-frontend]
+  Deploy: 
+    needs:  [Build-backend,Build-frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-    # Install deployment dependencies
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
       -  run : sudo apt update -qy
       -  run : sudo apt install -y ruby-dev
       -  run : sudo gem install dpl
+      -  run : |
+            mkdir -p build/public/
+            cp -r web_api build/public/
+            cp .htaccess build/public
+            cp composer.json composer/composer.lock build/
+            cp -rT dist/wypozyczalnia-angular build/public/
+            cp Procfile build/
+            cd build
+            sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
 
-    # Prepare files for deployment
-      -  run : mkdir -p build/public/
-      -  run : cp -r web_api build/public/
-      -  run : cp -rT front_angular/dist/front_angular build/public/
-      -  run : cp .htaccess build/public
-      -  run : cp composer.json composer.lock build/
-      -  run : cp Procfile build/
-
-    # Push to Heroku
-      -  run : cd build
-      -  run : |  
-          sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
 
