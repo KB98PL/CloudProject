@@ -17,25 +17,50 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
-  deploy: 
-    runs-on: ubuntu-latest
+  build-frontend:
+    runs-on: node:12.22.5
     steps:
-      - uses: actions/checkout@v2
-      - run: sudo apt update -qy
-      - run: sudo apt install -y ruby-dev
-      - run: sudo gem install dpl
-      - run: | 
-          cd front_angular
-          sudo npm install --progress=false
-          # sudo npm run build
-          cd ..
+      - run: |
+         cd angular_front/
+         npm install --progress=false
+         npm run build
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
           name: dist
           path: |
            front_angular/dist
-      - run: |
-          composer install --lock
-          cp -rT front_angular/dist ..
+     
+  build-backend:
+    runs-on: omposer:latest
+    steps:
+      -  run : composer update --ignore-platform-reqs
+      - name: Archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: composer
+          path: |
+           composer.lock
+
+  deploy: 
+    runs-on: node:12.22.5-buster
+    steps:
+      - uses: actions/checkout@v2
+    # Install deployment dependencies
+      -  run : apt update -qy
+      -  run : apt install -y ruby-dev
+      -  run : gem install dpl
+
+    # Prepare files for deployment
+      -  run : mkdir -p build/public/
+      -  run : cp -r web_api build/public/
+      -  run : cp -rT angular_front/dist/angular_frontend build/public/
+      -  run : cp .htaccess build/public
+      -  run : cp composer.json composer.lock build/
+      -  run : cp Procfile build/
+
+    # Push to Heroku
+      -  run : cd build/
+      -  run : |  
           sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
+
