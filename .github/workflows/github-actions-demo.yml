@@ -20,7 +20,6 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - run: ls -la
       - uses: actions/checkout@v2
       - run: |
          cd front_angular
@@ -36,7 +35,8 @@ jobs:
   build-backend:
     runs-on: ubuntu-latest
     steps:
-      -  run : composer update --ignore-platform-reqs
+      - uses: actions/checkout@v2
+      - run : composer update --ignore-platform-reqs
       - name: Archive
         uses: actions/upload-artifact@v2
         with:
@@ -45,6 +45,7 @@ jobs:
            composer.lock
 
   deploy: 
+    needs:  [build-backend,build-frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
