@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
       -  run : sudo apt update -qy
       -  run : sudo apt install -y ruby-dev
       -  run : sudo gem install dpl
@@ -58,7 +60,6 @@ jobs:
     # Prepare files for deployment
       -  run : mkdir -p build/public/
       -  run : cp -r web_api build/public/
-      -  run : ls -la 
       -  run : ls -la front_angular
       -  run : cp -rT front_angular/dist/wypozyczalnia-angular build/public/
       -  run : cp .htaccess build/public
