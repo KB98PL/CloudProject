@@ -68,5 +68,6 @@ jobs:
       -  run : ls -la composer
       -  run : ls -la build
       -  run : ls -la .
+      -  run : ls -la build/public
 
 
