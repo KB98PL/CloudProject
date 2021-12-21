@@ -63,6 +63,7 @@ jobs:
      # -  run : cp -rT dist/wypozyczalnia-angular build/public/
       -  run : cp .htaccess build/public
       -  run : ls -la composer
+      -  run : ls build
       -  run : cp composer.json composer/composer.lock build/
       -  run : cp Procfile build/
 
