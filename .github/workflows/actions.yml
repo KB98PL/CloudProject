@@ -56,20 +56,17 @@ jobs:
       -  run : sudo apt update -qy
       -  run : sudo apt install -y ruby-dev
       -  run : sudo gem install dpl
-
-    # Prepare files for deployment
-      -  run : mkdir -p build/public/
-      -  run : cp -r web_api build/public/
+      -  run : |
+            mkdir -p build/public/
+            cp -r web_api build/public/
+            cp .htaccess build/public
+            cp composer.json composer/composer.lock build/
+            cp Procfile build/
+            cd build
+            sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
      # -  run : cp -rT dist/wypozyczalnia-angular build/public/
-      -  run : cp .htaccess build/public
-      -  run : cp composer.json composer/composer.lock build/
-      -  run : cp Procfile build/
       -  run : ls -la composer
       -  run : ls -la build
       -  run : ls -la .
 
-    # Push to Heroku
-      -  run : cd build
-      -  run : |  
-          sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
 
