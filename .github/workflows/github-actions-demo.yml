@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-         cd front_angular/
+         cd front_angular
          sudo npm install --progress=false
          sudo npm run build
       - name: Archive
@@ -60,7 +60,7 @@ jobs:
       -  run : cp Procfile build/
 
     # Push to Heroku
-      -  run : cd build/
+      -  run : cd build
       -  run : |  
           sudo dpl --provider=heroku --app=${{ secrets.APP_NAME }} --api-key=${{ secrets.API_KEY }} --skip_cleanup
 
